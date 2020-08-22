@@ -19,11 +19,30 @@ class GraphDrawer extends Component {
     render() {
         console.log(this.props.graph)
         return (
-            <div style={{flex: 2, border: "1px solid"}}>
+            <div className="ml-6 border border-gray-700 rounded" style={{ flex: 2 }}>
                 <Graph 
                     graph={this.props.graph}
                     options={{
-                        height: "500px"
+                        height: "500px",
+                        edges: {
+                            arrows: {
+                                to: {
+                                    enabled: false
+                                }
+                            },
+                            color: {
+                                color: 'grey'
+                            }
+                        },
+                        nodes: {
+                            color: {
+                                text: '#fff',
+                                border: '#000',
+                                background: '#000'
+                            },
+                            shape: 'circle',
+                            font: '24px arial white'
+                        }
                     }}
                     events={this.graphEvents}
                     getNetwork={this.getNetwork}

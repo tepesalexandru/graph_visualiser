@@ -56,41 +56,52 @@ class Factory extends Component {
     render() {
         
         return (
-            <div style={{flex: 1}}>
-                <h2 className="ui header center aligned">Graph Information</h2>
-                <div className="ui input">
-                
-                <input type="text" placeholder="node" value={this.state.inputValue} onChange={(e) => this.setState({inputValue: e.target.value})}/>
-                <button className="ui button blue" onClick={() => this.addNode()}>
+            <div style={{flex: 1}} className="px-6 font-sans">
+                <h2 className="text-2xl font-medium mb-2">Graph Information</h2>
+
+
+                <div className="flex w-full mb-4">
+                <input className="flex-1 border border-gray-600 mr-2 rounded focus:outline-none focus:shadow-outline p-2" type="text" placeholder="node" value={this.state.inputValue} onChange={(e) => this.setState({inputValue: e.target.value})}/>
+                <button className="py-2 px-4 bg-blue-600 text-white rounded focus:outline-none focus:shadow-outline uppercase" onClick={() => this.addNode()}>
                     Add node
                 </button>
                 </div>
-                <div className="ui input">
-                <input type="text" placeholder="A" value={this.state.from} onChange={e => this.setState({from: e.target.value})}/>
-                <input type="text" placeholder="B" value={this.state.to} onChange={e => this.setState({to: e.target.value})}/>
-                <button className="ui button blue" onClick={() => this.addEdge()}>Add edge</button>
+
+
+                <div className="flex w-full mb-4">
+                    <div className="flex-1 pr-2 grid grid-cols-2 gap-2">
+                        <input className="border border-gray-600 rounded focus:outline-none focus:shadow-outline p-2" type="text" placeholder="A" value={this.state.from} onChange={e => this.setState({from: e.target.value})}/>
+                        <input className="border border-gray-600 rounded focus:outline-none focus:shadow-outline p-2" type="text" placeholder="B" value={this.state.to} onChange={e => this.setState({to: e.target.value})}/>
+                    </div>
+                    <button className="flex-shrink-0 py-2 px-4 bg-blue-600 text-white rounded focus:outline-none focus:shadow-outline uppercase" onClick={() => this.addEdge()}>Add edge</button>
                 </div>
-                <div className="ui input">
-                <input placeholder="Insert graph data" onChange={e => this.setState({rawTextData: e.target.value})} value={this.state.rawTextData}/>
-                <button className="ui button blue" onClick={() => this.parseRawTextdata()}>Draw graph</button>
-                <button className="ui button blue" onClick={() => this.onResetClick()}>Reset</button>
+
+
+                <div className="flex w-full mb-6">
+                <input className="flex-1 border border-gray-600 rounded focus:outline-none focus:shadow-outline p-2" placeholder="Insert graph data" onChange={e => this.setState({rawTextData: e.target.value})} value={this.state.rawTextData}/>
+                <button className="ml-2 flex-shrink-0 py-2 px-4 bg-blue-600 text-white rounded focus:outline-none focus:shadow-outline uppercase" onClick={() => this.parseRawTextdata()}>Draw graph</button>
+                <button className="ml-2 flex-shrink-0 py-2 px-4 bg-blue-600 text-white rounded focus:outline-none focus:shadow-outline uppercase" onClick={() => this.onResetClick()}>Reset</button>
                 </div>
-                <h4 className="ui header">Instructions:</h4>
-                <ul>
+
+
+                <h4 className="uppercase text-sm font-bold tracking-wider mb-2">Instructions:</h4>
+                <ul className="list-disc pl-4 grid grid-cols-1 gap-1 mb-6">
                     <li>Double click nodes or edges to delete them</li>
                     <li>Click and hold nodes to drag them around</li>
                     <li>Strinctly enter numbers in the input fields. Correct: "2", Wrong: "  2 "</li>
                     <li>The graph data must respect the following strucutre: "(a, b), (c, d), ..., (x, y)"</li>
                 </ul>
-                <div className="ui segments">
-                    <div className="ui segment">
-                        <p>Example</p>
-                    </div>
-                    <div className="ui secondary segment">
-                        <p>(1,2), (2,3), (4,5), (7,6), (3,7), (4,1), (5,6)</p>
+
+
+                <div className="w-full">
+                    <h6 className="uppercase text-sm font-bold tracking-wider mb-2">Example</h6>
+                    <div className="flex w-full">
+                        <div className="flex-1 border border-gray-600 rounded p-2 mr-2 cursor-not-allowed opacity-50">
+                            <p>(1,2), (2,3), (4,5), (7,6), (3,7), (4,1), (5,6)</p>
+                        </div>
+                        <button className="ml-2 flex-shrink-0 py-2 px-4 bg-blue-600 text-white rounded focus:outline-none focus:shadow-outline uppercase" onClick={() => this.onExampleClick()}>Run Example</button>
                     </div>
                 </div>
-                <button onClick={() => this.onExampleClick()} className="ui button blue">Run Example</button>
             </div>
         )
     }
