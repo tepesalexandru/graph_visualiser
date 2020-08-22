@@ -36,3 +36,10 @@ export const deleteConnection = (id) => {
         payload: id
     }
 }
+
+export const setGraphType = (type) => {
+    return {
+        type: 'SET_GRAPH_TYPE',
+        payload: type
+    }
+}

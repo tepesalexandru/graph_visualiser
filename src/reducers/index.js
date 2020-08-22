@@ -41,6 +41,8 @@ const initialInformation = {
 
 const graphInformationReducer = (oldInformation = initialInformation, action) => {
     switch (action.type) {
+        case 'SET_GRAPH_TYPE':
+            return {...oldInformation, type: action.payload}
         default:
             return oldInformation;
     }

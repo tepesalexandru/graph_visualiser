@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
-import {addNode, addConnection, resetGraph} from './actions';
+import {addNode, addConnection, resetGraph, setGraphType} from './actions';
 
 class Factory extends Component {
 
@@ -72,13 +72,13 @@ class Factory extends Component {
               <h6 className="uppercase text-sm font-bold tracking-wider mr-2">
                 Graph type :{" "}
               </h6>
-              <button className={this.getGraphTypeClasses("directed", "left")}>
+              <button onClick={() => this.props.setGraphType("directed")} className={this.getGraphTypeClasses("directed", "left")}>
                 Directed
               </button>
               <div className="h-8 w-8 flex items-center justify-center bg-white rounded-full -mx-4 z-10">
                 <p className="-mt-1">or</p>
               </div>
-              <button className={this.getGraphTypeClasses("undirected", "right")}>
+              <button onClick={() => this.props.setGraphType("undirected")} className={this.getGraphTypeClasses("undirected", "right")}>
                 Undirected
               </button>
             </div>
@@ -145,21 +145,7 @@ class Factory extends Component {
               </button>
             </div>
     
-            <h4 className="uppercase text-sm font-bold tracking-wider mb-2">
-              Instructions :
-            </h4>
-            <ul className="list-disc pl-4 grid grid-cols-1 gap-1 mb-6">
-              <li>Double click nodes or edges to delete them</li>
-              <li>Click and hold nodes to drag them around</li>
-              <li>
-                Strinctly enter numbers in the input fields. Correct: "2", Wrong: "
-                2 "
-              </li>
-              <li>
-                The graph data must respect the following strucutre: "(a, b), (c,
-                d), ..., (x, y)"
-              </li>
-            </ul>
+            
     
             <div className="w-full">
               <h6 className="uppercase text-sm font-bold tracking-wider mb-2">
@@ -187,5 +173,5 @@ const mapStateToProps = (state) => {
 }
 
 export default connect(mapStateToProps, {
-    addNode, addConnection, resetGraph
+    addNode, addConnection, resetGraph, setGraphType
 })(Factory);

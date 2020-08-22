@@ -5,6 +5,38 @@ import {deleteNode, deleteConnection} from './actions'
 
 class GraphDrawer extends Component {
 
+    getGraphOptions = () => {
+        return {
+            height: "500px",
+            edges: {
+                arrows: {
+                    to: {
+                        enabled: this.props.graphType === "directed"
+                    }
+                },
+                color: {
+                    color: 'grey'
+                },
+                width: 2,
+                smooth: {
+                    enabled: true,
+                    type: 'dynamic'
+                }
+            },
+            nodes: {
+                color: {
+                    border: '#292F36',
+                    background: '#373E40',
+                    highlight: {
+                        background: '#292F36'
+                    }
+                },
+                shape: 'ellipse',
+                font: '24px arial white'
+            }
+        }
+    }
+
     graphEvents = {
         select: function(event) {
             // on node click
@@ -16,44 +48,15 @@ class GraphDrawer extends Component {
         }
     }
 
-    graphOptions = {
-        height: "500px",
-        edges: {
-            arrows: {
-                to: {
-                    enabled: false
-                }
-            },
-            color: {
-                color: 'grey'
-            },
-            width: 2,
-            smooth: {
-                enabled: true,
-                type: 'dynamic'
-            }
-        },
-        nodes: {
-            color: {
-                text: '#fff',
-                border: '#292F36',
-                background: '#373E40',
-                highlight: {
-                    background: '#292F36'
-                }
-            },
-            shape: 'ellipse',
-            font: '24px arial white'
-        }
-    }
+    
 
     render() {
-        console.log(this.props.graph)
+        console.log(this.props.graphType)
         return (
             <div className="ml-6 rounded-lg bg-white shadow-lg" style={{flex: 2}}>
                 <Graph 
                     graph={this.props.graph}
-                    options={this.graphOptions}
+                    options={this.getGraphOptions()}
                     events={this.graphEvents}
                     getNetwork={this.getNetwork}
                     getEdges={this.getEdges}
@@ -68,7 +71,7 @@ class GraphDrawer extends Component {
 }
 
 const mapStateToProps = (state) => {
-    return {graph: state.graph}
+    return {graph: state.graph, graphType: state.graphInformation.type}
 }
 
 export default connect(mapStateToProps, {
