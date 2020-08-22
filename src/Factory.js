@@ -61,17 +61,17 @@ class Factory extends Component {
 
 
                 <div className="flex w-full mb-4">
-                <input className="flex-1 border border-gray-600 mr-2 rounded focus:outline-none focus:shadow-outline p-2" type="text" placeholder="node" value={this.state.inputValue} onChange={(e) => this.setState({inputValue: e.target.value})}/>
+                <input className="flex-1 border border-gray-600 mr-2 rounded focus:outline-none focus:shadow-outline p-2" type="text" placeholder="Ex: 3" value={this.state.inputValue} onChange={(e) => this.setState({inputValue: e.target.value})}/>
                 <button className="py-2 px-4 bg-blue-600 text-white rounded focus:outline-none focus:shadow-outline uppercase" onClick={() => this.addNode()}>
-                    Add node
+                    Add Node
                 </button>
                 </div>
 
 
                 <div className="flex w-full mb-4">
                     <div className="flex-1 pr-2 grid grid-cols-2 gap-2">
-                        <input className="border border-gray-600 rounded focus:outline-none focus:shadow-outline p-2" type="text" placeholder="A" value={this.state.from} onChange={e => this.setState({from: e.target.value})}/>
-                        <input className="border border-gray-600 rounded focus:outline-none focus:shadow-outline p-2" type="text" placeholder="B" value={this.state.to} onChange={e => this.setState({to: e.target.value})}/>
+                        <input className="border border-gray-600 rounded focus:outline-none focus:shadow-outline p-2" type="text" placeholder="From..." value={this.state.from} onChange={e => this.setState({from: e.target.value})}/>
+                        <input className="border border-gray-600 rounded focus:outline-none focus:shadow-outline p-2" type="text" placeholder="To..." value={this.state.to} onChange={e => this.setState({to: e.target.value})}/>
                     </div>
                     <button className="flex-shrink-0 py-2 px-4 bg-blue-600 text-white rounded focus:outline-none focus:shadow-outline uppercase" onClick={() => this.addEdge()}>Add edge</button>
                 </div>
