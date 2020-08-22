@@ -1,26 +1,26 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react';
+import Factory from './Factory';
+import GraphDrawer from './GraphDrawer'
+import GraphDetails from './GraphDetails';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+export default class App extends Component {
+    render() {
+        return (
+            <div>
+            <div style={{display: "flex"}} >
+            <h1 className="ui center aligned icon header">
+            <i className="connectdevelop icon massive" />
+                Graph Visualiser</h1>
+            </div>
+            
+            <div style={{display: "flex"}}>
+                <GraphDrawer />
+                <Factory />
+                <GraphDetails />
+               
+            </div>
+            </div>
+            
+        )
+    }
 }
-
-export default App;
