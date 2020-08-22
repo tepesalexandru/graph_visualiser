@@ -27,18 +27,65 @@ class Factory extends Component {
     }
 
     parseRawTextdata = () => {
-        console.log("Raw data:", this.state.rawTextData);
         if (this.state.rawTextData === '') return;
-        const newNodePairs = this.state.rawTextData.split(", ");
-        newNodePairs.map(pair => {
-            let firstNode, secondNode;
-            let comma = pair.indexOf(",");
-            firstNode = pair.substring(1, comma);
-            secondNode = pair.substring(comma + 1, pair.length - 1);
-            this.props.addNode(firstNode);
-            this.props.addNode(secondNode);
-            this.props.addConnection(firstNode, secondNode)
-        })
+        if (this.props.info.type === "tree") {
+          this.props.resetGraph();
+          let nodes = [];
+          let rawdata = this.state.rawTextData.slice();
+          let skip = 1;
+          while (rawdata !== '') {
+            rawdata = this.state.rawTextData.substring(skip);
+            let nextComma = rawdata.indexOf(",");
+            let pr = rawdata.indexOf(")");
+            let newNode;
+            if (nextComma === -1)
+            skip += pr + 1;
+            else skip += nextComma + 1;
+            if (nextComma !== -1)
+             newNode = rawdata.substring(0, nextComma);
+            else newNode = rawdata.substring(0, pr);
+            nodes.push(newNode);
+          }
+          console.log(nodes);
+          let q = [];
+          let added = [];
+          let len = nodes.length;
+          for (let i = 0; i < len; i++) {
+            added[i] = false;
+            if (nodes[i] === "0") {
+              this.props.addNode(i + 1);
+              q.push(i + 1);
+              break;
+            }
+          }
+          console.log(q[0]);
+          while (q.length > 0) {
+            console.log(q);
+            for (let i = 0; i < len; i++) {
+              if (parseInt(nodes[i]) === q[0] && !added[i]) {
+                added[i] = true;
+                q.push(i + 1);
+                console.log(q);
+                this.props.addNode(i + 1)
+                this.props.addConnection(q[0], i + 1);
+              }
+            }
+            q.shift();
+          }
+
+        } else {
+          const newNodePairs = this.state.rawTextData.split(", ");
+          newNodePairs.map(pair => {
+              let firstNode, secondNode;
+              let comma = pair.indexOf(",");
+              firstNode = pair.substring(1, comma);
+              secondNode = pair.substring(comma + 1, pair.length - 1);
+              this.props.addNode(firstNode);
+              this.props.addNode(secondNode);
+              this.props.addConnection(firstNode, secondNode)
+          })
+        }
+        
     }
 
     onResetClick = () => {
@@ -48,7 +95,7 @@ class Factory extends Component {
 
     onExampleClick = () => {
         this.onResetClick();
-        this.setState({rawTextData: "(1,2), (2,3), (4,5), (7,6), (3,7), (4,1), (5,6)"}, () => {
+        this.setState({rawTextData: this.getExample()}, () => {
             this.parseRawTextdata();
         })
         
@@ -57,17 +104,20 @@ class Factory extends Component {
     getGraphTypeClasses = (type, direction) => {
         let cl = '';
         if (type === this.props.info.type) {
+          console.log("the right one!")
             cl = "bg-blue-700 text-white";
         } else cl = "bg-gray-300 text-gray-900";
         if (direction === "right") {
             return `py-2 pr-4 pl-6 rounded-tr rounded-br ${cl} ml-1 focus:outline-none focus:shadow-outline`;
-        } else return `py-2 pl-4 pr-6 rounded-tl rounded-bl ${cl} mr-1 focus:outline-none focus:shadow-outline`;
-    }
+        } else if (direction === "right") return `py-2 pl-4 pr-6 rounded-tl rounded-bl ${cl} mr-1 focus:outline-none focus:shadow-outline`;
+        return `py-2 pl-4 pr-6 ${cl} mr-1 focus:outline-none focus:shadow-outline`
+      }
 
     getExample = () => {
       if (this.props.info.type === "directed")
       return "(1,2), (2,3), (4,5), (7,6), (3,7), (4,1), (5,6)";
-      return "[1,2], [2,3], [4,5], [7,6], [3,7], [4,1], [5,6]"
+      else if (this.props.info.type === "undirected") return "[1,2], [2,3], [4,5], [7,6], [3,7], [4,1], [5,6]";
+      return "(2,5,1,1,0,3,3,7,4,6)"
     }
 
     generateCompleteGraph = () => {
@@ -84,22 +134,27 @@ class Factory extends Component {
     }
 
     render() {
-        
         return (
             <div style={{ flex: 1 }} className="p-6 mx-6 font-sans bg-white rounded-lg shadow-lg">
             <h2 className="text-2xl font-medium mb-2">Graph Information</h2>
-            <div className="w-full flex items-center mb-6">
-              <h6 className="uppercase text-sm font-bold tracking-wider mr-2">
+              <h6 className="uppercase text-sm font-bold tracking-wider mb-2">
                 Graph type :{" "}
               </h6>
+            <div className="w-full flex items-center mb-6">
               <button onClick={() => this.props.setGraphType("directed")} className={this.getGraphTypeClasses("directed", "left")}>
                 Directed
               </button>
               <div className="h-8 w-8 flex items-center justify-center bg-white rounded-full -mx-4 z-10">
                 <p className="-mt-1">or</p>
               </div>
-              <button onClick={() => this.props.setGraphType("undirected")} className={this.getGraphTypeClasses("undirected", "right")}>
+              <button onClick={() => this.props.setGraphType("undirected")} className={this.getGraphTypeClasses("undirected", "middle")}>
                 Undirected
+              </button>
+              <div className="h-8 w-8 flex items-center justify-center bg-white rounded-full -mx-4 z-10">
+                <p className="-mt-1">or</p>
+              </div>
+              <button onClick={() => this.props.setGraphType("tree")} className={this.getGraphTypeClasses("tree", "right")}>
+                Tree
               </button>
             </div>
     

@@ -19,6 +19,9 @@ export default function Information() {
               <li>
                 The graph data for undirected graphs must respect the following strucutre: "[a,b], [c,d], ..., [x,y]" or the one for directed graphs.
               </li>
+              <li>
+                The graph data for trees must respect the following structure: "(a,b,c,d,e,...,z)"
+              </li>
             </ul>
         </div>
     )

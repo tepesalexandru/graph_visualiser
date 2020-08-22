@@ -11,7 +11,7 @@ class GraphDrawer extends Component {
             edges: {
                 arrows: {
                     to: {
-                        enabled: this.props.graphType === "directed"
+                        enabled: (this.props.graphType === "directed" || this.props.graphType === "tree")
                     }
                 },
                 color: {
@@ -33,6 +33,14 @@ class GraphDrawer extends Component {
                 },
                 shape: 'ellipse',
                 font: '24px arial white'
+            },
+            layout: {
+                hierarchical: {
+                    enabled: this.props.graphType === "tree",
+                    parentCentralization: true,
+                    improvedLayout: false,
+                    sortMethod: 'directed'
+                }
             }
         }
     }
