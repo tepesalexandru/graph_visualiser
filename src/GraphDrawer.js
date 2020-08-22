@@ -20,7 +20,7 @@ class GraphDrawer extends Component {
                 width: 2,
                 smooth: {
                     enabled: true,
-                    type: 'dynamic'
+                    type: 'discrete'
                 }
             },
             nodes: {

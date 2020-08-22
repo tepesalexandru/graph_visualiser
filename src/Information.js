@@ -14,8 +14,10 @@ export default function Information() {
                 2 "
               </li>
               <li>
-                The graph data must respect the following strucutre: "(a, b), (c,
-                d), ..., (x, y)"
+                The graph data for directed graphs must respect the following strucutre: "(a,b), (c,d), ..., (x,y)"
+              </li>
+              <li>
+                The graph data for undirected graphs must respect the following strucutre: "[a,b], [c,d], ..., [x,y]" or the one for directed graphs.
               </li>
             </ul>
         </div>

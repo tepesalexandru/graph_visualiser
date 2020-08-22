@@ -8,7 +8,8 @@ class Factory extends Component {
         inputValue: '',
         from: '',
         to: '',
-        rawTextData: ''
+        rawTextData: '', 
+        completeNumber: ''
     }
 
     componentDidMount() {
@@ -63,6 +64,25 @@ class Factory extends Component {
         } else return `py-2 pl-4 pr-6 rounded-tl rounded-bl ${cl} mr-1 focus:outline-none focus:shadow-outline`;
     }
 
+    getExample = () => {
+      if (this.props.info.type === "directed")
+      return "(1,2), (2,3), (4,5), (7,6), (3,7), (4,1), (5,6)";
+      return "[1,2], [2,3], [4,5], [7,6], [3,7], [4,1], [5,6]"
+    }
+
+    generateCompleteGraph = () => {
+      this.onResetClick();
+      let nr = parseInt(this.state.completeNumber);
+      for (let i = 1; i <= nr; i++) {
+        this.props.addNode(i);
+      }
+      for (let i = 1; i < nr; i++) {
+        for (let j = i + 1; j <= nr; j++) {
+          this.props.addConnection(i, j);
+        }
+      }
+    }
+
     render() {
         
         return (
@@ -87,7 +107,7 @@ class Factory extends Component {
               <input
                 className="flex-1 border border-gray-600 mr-2 rounded focus:outline-none focus:shadow-outline p-2"
                 type="text"
-                placeholder="Ex: 5"
+                placeholder="Ex: 3"
                 value={this.state.inputValue}
                 onChange={(e) => this.setState({ inputValue: e.target.value })}
               />
@@ -147,13 +167,13 @@ class Factory extends Component {
     
             
     
-            <div className="w-full">
+            <div className="w-full mb-6">
               <h6 className="uppercase text-sm font-bold tracking-wider mb-2">
                 Example
               </h6>
               <div className="flex w-full">
                 <div className="flex-1 border border-gray-600 rounded p-2 cursor-not-allowed opacity-50">
-                  <p>(1,2), (2,3), (4,5), (7,6), (3,7), (4,1), (5,6)</p>
+                <p>{this.getExample()}</p>
                 </div>
                 <button
                   className="ml-2 flex-shrink-0 py-2 px-4 bg-blue-700 text-white rounded focus:outline-none focus:shadow-outline uppercase"
@@ -162,6 +182,24 @@ class Factory extends Component {
                   Run Example
                 </button>
               </div>
+            </div>
+            <div className="w-full">
+            <h6 className="uppercase text-sm font-bold tracking-wider mb-2">
+                Complete Graph
+            </h6>
+            <input
+                className="flex-1 border border-gray-600 mr-2 rounded focus:outline-none focus:shadow-outline p-2"
+                type="text"
+                placeholder="Ex: 5"
+                value={this.state.completeNumber}
+                onChange={(e) => this.setState({ completeNumber: e.target.value })}
+              />
+              <button
+                className="py-2 px-4 bg-blue-700 text-white rounded focus:outline-none focus:shadow-outline uppercase"
+                onClick={() => this.generateCompleteGraph()}
+              >
+                Generate Graph
+              </button>
             </div>
           </div>
         )
