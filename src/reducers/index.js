@@ -33,9 +33,20 @@ const graphReducer = (oldGraph = initialGraph, action) => {
         default: 
             return oldGraph;
     }
-    
+}
+
+const initialInformation = {
+    type: 'undirected'
+}
+
+const graphInformationReducer = (oldInformation = initialInformation, action) => {
+    switch (action.type) {
+        default:
+            return oldInformation;
+    }
 }
 
 export default combineReducers({
-    graph: graphReducer
+    graph: graphReducer,
+    graphInformation: graphInformationReducer
 });

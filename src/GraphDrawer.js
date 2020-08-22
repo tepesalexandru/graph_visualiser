@@ -16,34 +16,44 @@ class GraphDrawer extends Component {
         }
     }
 
+    graphOptions = {
+        height: "500px",
+        edges: {
+            arrows: {
+                to: {
+                    enabled: false
+                }
+            },
+            color: {
+                color: 'grey'
+            },
+            width: 2,
+            smooth: {
+                enabled: true,
+                type: 'dynamic'
+            }
+        },
+        nodes: {
+            color: {
+                text: '#fff',
+                border: '#292F36',
+                background: '#373E40',
+                highlight: {
+                    background: '#292F36'
+                }
+            },
+            shape: 'ellipse',
+            font: '24px arial white'
+        }
+    }
+
     render() {
         console.log(this.props.graph)
         return (
-            <div className="ml-6 border border-gray-700 rounded" style={{ flex: 2 }}>
+            <div className="ml-6 rounded-lg bg-white shadow-lg" style={{flex: 2}}>
                 <Graph 
                     graph={this.props.graph}
-                    options={{
-                        height: "500px",
-                        edges: {
-                            arrows: {
-                                to: {
-                                    enabled: false
-                                }
-                            },
-                            color: {
-                                color: 'grey'
-                            }
-                        },
-                        nodes: {
-                            color: {
-                                text: '#fff',
-                                border: '#000',
-                                background: '#000'
-                            },
-                            shape: 'circle',
-                            font: '24px arial white'
-                        }
-                    }}
+                    options={this.graphOptions}
                     events={this.graphEvents}
                     getNetwork={this.getNetwork}
                     getEdges={this.getEdges}
